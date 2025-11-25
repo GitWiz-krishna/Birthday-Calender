@@ -544,6 +544,76 @@
           font-size: 18px;
         }
       }
+      .info-bar {
+        margin-top: 6px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      #todayBirth,
+      #upcomingBirth {
+        background: rgba(255, 255, 255, 0.8);
+        padding: 6px 10px;
+        border-radius: 8px;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        cursor: default;
+      }
+
+      /* Hover effect */
+      #todayBirth:hover,
+      #upcomingBirth:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      }
+      .info-bar {
+        margin-top: 6px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      /* Today Birthday */
+      #todayBirth {
+        background: linear-gradient(120deg, #ff7aa7, #ff5f88);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 10px;
+        transition: transform 0.22s ease, box-shadow 0.22s ease;
+        cursor: pointer;
+        box-shadow: 0 3px 10px rgba(255, 0, 90, 0.25);
+      }
+
+      /* Upcoming Birthday */
+      #upcomingBirth {
+        background: linear-gradient(120deg, #5aa8ff, #007bff);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 10px;
+        transition: transform 0.22s ease, box-shadow 0.22s ease;
+        cursor: pointer;
+        box-shadow: 0 3px 10px rgba(0, 100, 255, 0.25);
+      }
+
+      /* Hover effect */
+      #todayBirth:hover,
+      #upcomingBirth:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+      }
+      .birth {
+        border: 2px solid transparent;
+      }
+
+      .birth.hover-border {
+        border-color: var(--accent);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
     </style>
   </head>
   <body>
@@ -556,6 +626,10 @@
           <div class="year-label">
             Year view — change year to recalc weekdays
           </div>
+        </div>
+        <div class="info-bar">
+          <span id="todayBirth"></span>
+          <span id="upcomingBirth"></span>
         </div>
 
         <div class="controls">
@@ -596,10 +670,6 @@
           GitHub Pages.
         </div>
       </main>
-    </div>
-    <div style="margin-bottom: 20px; font-size: 16px; font-weight: 600">
-      <div id="todayBirth" style="margin-bottom: 8px; color: #d63384"></div>
-      <div id="upcomingBirth" style="color: #0080ff"></div>
     </div>
 
     <!-- modal -->
@@ -781,18 +851,38 @@
 
         // Upcoming (after today)
         const todayNumber = tMonth * 100 + tDay;
-        const upcoming = birthdays
-          .map((b) => ({ ...b, dateNumber: b.month * 100 + b.day }))
-          .filter((b) => b.dateNumber > todayNumber)
-          .sort((a, b) => a.dateNumber - b.dateNumber);
+        // Calculate days left or days ago
+        function dayDifference(b) {
+          const today = new Date();
+          const thisYear = today.getFullYear();
 
-        const upMsg =
-          upcoming.length > 0
-            ? `🎂 Upcoming: ${upcoming[0].name} — ${String(
-                upcoming[0].day
-              ).padStart(2, "0")}-${String(upcoming[0].month).padStart(2, "0")}`
-            : "No upcoming birthdays.";
-        if (upcomingEl) upcomingEl.innerText = upMsg;
+          let bday = new Date(thisYear, b.month - 1, b.day);
+
+          // If birthday already passed this year → next year's birthday
+          if (bday < today) {
+            bday = new Date(thisYear + 1, b.month - 1, b.day);
+          }
+
+          const diffTime = bday - today;
+          return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        }
+
+        const list = birthdays
+          .map((b) => ({ ...b, diff: dayDifference(b) }))
+          .sort((a, b) => a.diff - b.diff);
+
+        if (list.length > 0) {
+          const next = list[0];
+
+          let text = "";
+          if (next.diff === 0) text = "Today";
+          else if (next.diff === 1) text = "1 day left";
+          else text = `${next.diff} days left`;
+
+          upcomingEl.innerText = `Upcoming: ${next.name} — ${text}`;
+        } else {
+          upcomingEl.innerText = "No upcoming birthdays.";
+        }
       }
 
       /* ---------------------------
@@ -839,10 +929,11 @@
 
               // change outside tint of card on item hover
               item.addEventListener("mouseenter", () => {
-                card.style.boxShadow = `0 12px 30px ${hexToRgba(color, 0.12)}`;
+                item.classList.add("hover-border");
               });
+
               item.addEventListener("mouseleave", () => {
-                card.style.boxShadow = "";
+                item.classList.remove("hover-border");
               });
 
               const img = document.createElement("img");
