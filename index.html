@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="images/cake.png" />
 
     <title>Birthday Calendar — Year view</title>
-    
+
     <style>
       /* 01 - Variables & Base --------------------------------------------------- */
       :root {
@@ -15,16 +15,18 @@
         --text: #111213;
         --muted: #666666;
         --radius: 14px;
-        --shadow: 0 6px 18px rgba(17,18,19,0.06);
-        --glass: rgba(255,255,255,0.6);
+        --shadow: 0 6px 18px rgba(17, 18, 19, 0.06);
+        --glass: rgba(255, 255, 255, 0.6);
       }
 
-      html, body {
+      html,
+      body {
         height: 100%;
         margin: 0;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+          Roboto, "Helvetica Neue", Arial;
       }
-      
+
       body {
         background: var(--bg);
         color: var(--text);
@@ -32,9 +34,9 @@
         padding: 28px;
       }
 
-      .container { 
-        max-width: 1100px; 
-        margin: 0 auto; 
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
       }
 
       /* 02 - Header & Controls -------------------------------------------------- */
@@ -46,30 +48,30 @@
         gap: 12px;
       }
 
-      h1 { 
-        font-size: 20px; 
-        margin: 0; 
-        font-weight: 600; 
-      }
-
-      .controls { 
-        display: flex; 
-        gap: 8px; 
-        align-items: center; 
-      }
-      
-      input[type="number"] {
-        width: 110px; 
-        padding: 10px; 
-        border-radius: 10px; 
-        border: 1px solid #e6e6e6; 
-        background: #fff; 
+      h1 {
+        font-size: 20px;
+        margin: 0;
         font-weight: 600;
       }
-      
-      .year-label { 
-        font-size: 13px; 
-        color: var(--muted); 
+
+      .controls {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      input[type="number"] {
+        width: 110px;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #e6e6e6;
+        background: #fff;
+        font-weight: 600;
+      }
+
+      .year-label {
+        font-size: 13px;
+        color: var(--muted);
       }
 
       /* 03 - Responsive months grid -------------------------------------------- */
@@ -78,120 +80,139 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 14px;
       }
-      
-      @media (max-width: 880px) { 
-        .months { 
-          grid-template-columns: repeat(2, 1fr); 
-        } 
-      }
-      
-      @media (max-width: 520px) {
-        .months { 
-          grid-template-columns: 1fr; 
+
+      @media (max-width: 880px) {
+        .months {
+          grid-template-columns: repeat(2, 1fr);
         }
-        header { 
-          flex-direction: column; 
-          align-items: flex-start; 
+      }
+
+      @media (max-width: 520px) {
+        .months {
+          grid-template-columns: 1fr;
+        }
+        header {
+          flex-direction: column;
+          align-items: flex-start;
         }
       }
 
       /* 04 - Month card --------------------------------------------------------- */
       .month-card {
         border-radius: var(--radius);
-        background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.9));
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.7),
+          rgba(255, 255, 255, 0.9)
+        );
         box-shadow: var(--shadow);
-        padding: 14px; 
-        position: relative; 
+        padding: 14px;
+        position: relative;
         overflow: visible;
-        transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+        transition: transform 0.22s ease, box-shadow 0.22s ease,
+          border-color 0.22s ease;
         border: 1px solid transparent;
       }
-      
+
       .month-card:hover {
         transform: translateY(-6px);
-        box-shadow: 0 14px 26px rgba(0,0,0,0.12);
-        background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(250,250,250,1));
-        border-color: rgba(0,0,0,0.05);
+        box-shadow: 0 14px 26px rgba(0, 0, 0, 0.12);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.95),
+          rgba(250, 250, 250, 1)
+        );
+        border-color: rgba(0, 0, 0, 0.05);
       }
 
       .month-card::before {
         content: "";
-        position: absolute; 
-        inset: -8px; 
+        position: absolute;
+        inset: -8px;
         border-radius: calc(var(--radius) + 8px);
-        background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0));
-        z-index: -1; 
-        transition: all .28s ease; 
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 0)
+        );
+        z-index: -1;
+        transition: all 0.28s ease;
         pointer-events: none;
       }
-      
+
       .month-card:hover::before {
-        background: linear-gradient(180deg, var(--hover-color, rgba(0,0,0,0.02)), rgba(255,255,255,0));
-        filter: blur(8px); 
-        opacity: .95;
+        background: linear-gradient(
+          180deg,
+          var(--hover-color, rgba(0, 0, 0, 0.02)),
+          rgba(255, 255, 255, 0)
+        );
+        filter: blur(8px);
+        opacity: 0.95;
       }
 
-      .month-head { 
-        display: flex; 
-        align-items: center; 
-        justify-content: space-between; 
-        margin-bottom: 8px; 
+      .month-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
       }
-      
-      .month-title { 
-        font-weight: 700; 
-        font-size: 16px; 
+
+      .month-title {
+        font-weight: 700;
+        font-size: 16px;
       }
-      
-      .month-sub { 
-        font-size: 12px; 
-        color: var(--muted); 
+
+      .month-sub {
+        font-size: 12px;
+        color: var(--muted);
       }
 
       /* 05 - Birth list & items ------------------------------------------------- */
-      .birth-list { 
-        display: flex; 
-        flex-direction: column; 
-        gap: 8px; 
-        margin-top: 6px; 
+      .birth-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 6px;
       }
-      
+
       .birth {
-        display: flex; 
-        align-items: center; 
-        gap: 10px; 
-        padding: 8px; 
-        border-radius: 12px; 
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px;
+        border-radius: 12px;
         cursor: pointer;
-        transition: background .18s ease, transform .18s ease, box-shadow .18s ease;
-        background: transparent; 
-        --hover-color: rgba(0,0,0,0.03);
+        transition: background 0.18s ease, transform 0.18s ease,
+          box-shadow 0.18s ease;
+        background: transparent;
+        --hover-color: rgba(0, 0, 0, 0.03);
       }
-      
-      .birth:hover { 
-        transform: translateY(-4px); 
-        box-shadow: 0 8px 20px rgba(0,0,0,0.08); 
+
+      .birth:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
       }
-      
-      .birth:focus { 
-        outline: 3px solid rgba(100,150,255,0.18); 
-        transform: translateY(-4px); 
+
+      .birth:focus {
+        outline: 3px solid rgba(100, 150, 255, 0.18);
+        transform: translateY(-4px);
       }
 
       .avatar {
-        width: 44px; 
-        height: 44px; 
-        border-radius: 50%; 
-        flex: 0 0 44px; 
-        object-fit: cover;
-        border: 3px solid rgba(255,255,255,0.5); 
-        box-shadow: 0 6px 14px rgba(0,0,0,0.06);
-        transition: transform .18s ease, filter .18s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        object-fit: cover; /* crops the image */
+        object-position: center; /* centers the face */
+        border: 3px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+        transition: transform 0.18s ease, filter 0.18s ease;
       }
-      
-      .avatar.glow { 
-        box-shadow: 0 10px 30px rgba(0,0,0,0.12), 0 0 18px rgba(255,255,255,0.06) inset; 
-        transform: scale(1.05); 
+
+      .avatar.glow {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12),
+          0 0 18px rgba(255, 255, 255, 0.06) inset;
+        transform: scale(1.05);
       }
 
       /* Month-based avatar hover colors */
@@ -255,267 +276,273 @@
         border-color: #9fa8da;
       }
 
-      .binfo { 
-        flex: 1; 
-        min-width: 0; 
+      .binfo {
+        flex: 1;
+        min-width: 0;
       }
-      
-      .bname { 
-        font-weight: 600; 
-        font-size: 14px; 
+
+      .bname {
+        font-weight: 600;
+        font-size: 14px;
       }
-      
-      .bdate { 
-        font-size: 13px; 
-        color: var(--muted); 
-        margin-top: 3px; 
+
+      .bdate {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 3px;
       }
-      
+
       .weekday {
-        display: inline-block; 
-        margin-left: 8px; 
-        font-size: 12px; 
-        color: #222; 
-        opacity: .8;
-        padding: 4px 8px; 
-        border-radius: 999px; 
-        background: rgba(255,255,255,0.15); 
+        display: inline-block;
+        margin-left: 8px;
+        font-size: 12px;
+        color: #222;
+        opacity: 0.8;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.15);
         font-weight: 600;
       }
 
       .birth .badge {
-        font-size: 11px; 
-        padding: 4px 8px; 
-        border-radius: 999px; 
-        background: rgba(255,255,255,0.9);
-        color: #333; 
-        box-shadow: 0 6px 12px rgba(0,0,0,0.06); 
-        margin-left: 8px; 
+        font-size: 11px;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+        margin-left: 8px;
         font-weight: 700;
       }
 
       /* Highlight for today's birthday */
       .birth.today {
-        outline: 3px solid rgba(255,215,0,0.95);
-        box-shadow: 0 14px 36px rgba(255,203,64,0.12), 0 4px 12px rgba(0,0,0,0.06);
+        outline: 3px solid rgba(255, 215, 0, 0.95);
+        box-shadow: 0 14px 36px rgba(255, 203, 64, 0.12),
+          0 4px 12px rgba(0, 0, 0, 0.06);
         transform: translateY(-6px) scale(1.01);
-        background: linear-gradient(180deg, rgba(255,250,220,0.95), rgba(255,245,200,0.6));
-        border: 1px solid rgba(255,215,0,0.2);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 250, 220, 0.95),
+          rgba(255, 245, 200, 0.6)
+        );
+        border: 1px solid rgba(255, 215, 0, 0.2);
       }
-      
-      .birth.today .avatar { 
-        animation: pulseGlow 2.4s infinite ease-in-out; 
+
+      .birth.today .avatar {
+        animation: pulseGlow 2.4s infinite ease-in-out;
       }
-      
-      @keyframes pulseGlow { 
-        0% { 
-          box-shadow: 0 8px 20px rgba(255,215,0,0.06);
-        } 
-        50% { 
-          box-shadow: 0 18px 40px rgba(255,215,0,0.12);
-        } 
-        100% { 
-          box-shadow: 0 8px 20px rgba(255,215,0,0.06);
-        } 
+
+      @keyframes pulseGlow {
+        0% {
+          box-shadow: 0 8px 20px rgba(255, 215, 0, 0.06);
+        }
+        50% {
+          box-shadow: 0 18px 40px rgba(255, 215, 0, 0.12);
+        }
+        100% {
+          box-shadow: 0 8px 20px rgba(255, 215, 0, 0.06);
+        }
       }
 
       /* 06 - Accent band & misc ------------------------------------------------ */
       .accent {
-        position: absolute; 
-        inset: auto 0 -10px 0; 
-        height: 8px; 
+        position: absolute;
+        inset: auto 0 -10px 0;
+        height: 8px;
         border-bottom-left-radius: var(--radius);
-        border-bottom-right-radius: var(--radius); 
-        opacity: .95;
+        border-bottom-right-radius: var(--radius);
+        opacity: 0.95;
       }
 
       /* 07 - Modal / Popup ----------------------------------------------------- */
       .modal-backdrop {
-        position: fixed; 
-        inset: 0; 
-        background: rgba(6,7,8,0.45);
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
+        position: fixed;
+        inset: 0;
+        background: rgba(6, 7, 8, 0.45);
+        display: flex;
+        align-items: center;
+        justify-content: center;
         z-index: 120;
-        opacity: 0; 
-        pointer-events: none; 
-        transition: opacity .22s ease;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.22s ease;
       }
-      
-      .modal-backdrop.show { 
-        opacity: 1; 
-        pointer-events: auto; 
+
+      .modal-backdrop.show {
+        opacity: 1;
+        pointer-events: auto;
       }
 
       .modal {
-        width: 360px; 
-        max-width: 92%; 
-        background: linear-gradient(180deg,#fff,#fbfbfb);
-        border-radius: 16px; 
-        padding: 18px; 
-        box-shadow: 0 30px 60px rgba(2,6,23,0.22);
-        text-align: center; 
-        position: relative; 
-        transform: translateY(6px); 
-        transition: transform .22s ease, opacity .22s ease; 
+        width: 360px;
+        max-width: 92%;
+        background: linear-gradient(180deg, #fff, #fbfbfb);
+        border-radius: 16px;
+        padding: 18px;
+        box-shadow: 0 30px 60px rgba(2, 6, 23, 0.22);
+        text-align: center;
+        position: relative;
+        transform: translateY(6px);
+        transition: transform 0.22s ease, opacity 0.22s ease;
         opacity: 0;
       }
-      
-      .modal-backdrop.show .modal { 
-        transform: translateY(0); 
-        opacity: 1; 
+
+      .modal-backdrop.show .modal {
+        transform: translateY(0);
+        opacity: 1;
       }
 
       .modal .big-avatar {
-        width: 120px; 
-        height: 120px; 
-        border-radius: 50%; 
-        object-fit: cover; 
-        border: 6px solid white; 
-        margin: -60px auto 8px; 
-        box-shadow: 0 12px 30px rgba(17,18,19,0.12);
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 6px solid white;
+        margin: -60px auto 8px;
+        box-shadow: 0 12px 30px rgba(17, 18, 19, 0.12);
       }
-      
-      .modal h2 { 
-        margin: 6px 0 0; 
-        font-size: 20px; 
+
+      .modal h2 {
+        margin: 6px 0 0;
+        font-size: 20px;
       }
-      
-      .modal p { 
-        color: var(--muted); 
-        margin: 6px 0 12px; 
+
+      .modal p {
+        color: var(--muted);
+        margin: 6px 0 12px;
       }
-      
-      .wish-btn { 
-        margin-top: 8px; 
-        padding: 10px 18px; 
-        border-radius: 12px; 
-        border: 0; 
-        font-weight: 700; 
-        cursor: pointer; 
+
+      .wish-btn {
+        margin-top: 8px;
+        padding: 10px 18px;
+        border-radius: 12px;
+        border: 0;
+        font-weight: 700;
+        cursor: pointer;
       }
-      
-      .close-x { 
-        position: absolute; 
-        right: 12px; 
-        top: 8px; 
-        border-radius: 8px; 
-        padding: 6px; 
-        border: 0; 
-        background: transparent; 
-        color: #333; 
-        font-weight: 700; 
-        cursor: pointer; 
+
+      .close-x {
+        position: absolute;
+        right: 12px;
+        top: 8px;
+        border-radius: 8px;
+        padding: 6px;
+        border: 0;
+        background: transparent;
+        color: #333;
+        font-weight: 700;
+        cursor: pointer;
       }
-      
-      .age-info { 
-        font-size: 13px; 
-        color: var(--muted); 
-        margin-top: 6px; 
+
+      .age-info {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 6px;
       }
 
       /* 08 - Confetti / Canvas ------------------------------------------------- */
-      canvas#confetti { 
-        position: fixed; 
-        left: 0; 
-        top: 0; 
-        width: 100%; 
-        height: 100%; 
-        pointer-events: none; 
-        z-index: 130; 
+      canvas#confetti {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 130;
       }
 
       /* 09 - Balloons ---------------------------------------------------------- */
-      #balloons { 
-        position: fixed; 
-        bottom: -20vh; 
-        left: 0; 
-        width: 100%; 
-        height: 100vh; 
-        pointer-events: none; 
-        z-index: 50; 
-        overflow: hidden; 
+      #balloons {
+        position: fixed;
+        bottom: -20vh;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 50;
+        overflow: hidden;
       }
-      
-      #balloons .balloon { 
-        position: absolute; 
-        border-radius: 50%; 
-        animation: floatUp 8s linear infinite; 
-        opacity: 0.95; 
-        transform-origin: center; 
-        box-shadow: 0 6px 12px rgba(0,0,0,0.08); 
-        z-index: 51; 
-        pointer-events: none; 
+
+      #balloons .balloon {
+        position: absolute;
+        border-radius: 50%;
+        animation: floatUp 8s linear infinite;
+        opacity: 0.95;
+        transform-origin: center;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+        z-index: 51;
+        pointer-events: none;
       }
-      
-      #balloons .balloon.small { 
-        width: 26px; 
-        height: 36px; 
+
+      #balloons .balloon.small {
+        width: 26px;
+        height: 36px;
       }
-      
-      #balloons .balloon { 
-        width: 34px; 
-        height: 46px; 
+
+      #balloons .balloon {
+        width: 34px;
+        height: 46px;
       }
-      
-      #balloons .balloon.large { 
-        width: 54px; 
-        height: 74px; 
+
+      #balloons .balloon.large {
+        width: 54px;
+        height: 74px;
       }
 
       @keyframes floatUp {
-        0% { 
-          transform: translateY(60px) rotate(0deg); 
-          opacity: .9; 
+        0% {
+          transform: translateY(60px) rotate(0deg);
+          opacity: 0.9;
         }
-        100% { 
-          transform: translateY(-120vh) rotate(180deg); 
-          opacity: 0; 
+        100% {
+          transform: translateY(-120vh) rotate(180deg);
+          opacity: 0;
         }
       }
 
       /* 10 - Today / Upcoming badges & footer ---------------------------------- */
-      #todayBirth, #upcomingBirth {
-        display: inline-block; 
-        font-weight: 700; 
-        font-size: 14px; 
-        color: #111; 
-        margin: 6px 0; 
+      #todayBirth,
+      #upcomingBirth {
+        display: inline-block;
+        font-weight: 700;
+        font-size: 14px;
+        color: #111;
+        margin: 6px 0;
         line-height: 1.2;
-        background: rgba(255,255,255,0.9); 
-        border: 1px solid rgba(0,0,0,0.04); 
-        padding: 8px 12px; 
-        border-radius: 10px; 
-        box-shadow: 0 6px 16px rgba(2,6,23,0.04);
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(0, 0, 0, 0.04);
+        padding: 8px 12px;
+        border-radius: 10px;
+        box-shadow: 0 6px 16px rgba(2, 6, 23, 0.04);
       }
 
-      .footer { 
-        margin-top: 16px; 
-        text-align: center; 
-        color: var(--muted); 
-        font-size: 13px; 
+      .footer {
+        margin-top: 16px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 13px;
       }
 
       /* Utility classes ------------------------------------------------------- */
-      .hidden { 
-        display: none !important; 
+      .hidden {
+        display: none !important;
       }
-      
-      .center { 
-        text-align: center; 
+
+      .center {
+        text-align: center;
       }
 
       /* Accessibility & responsive tweaks ------------------------------------- */
-      @media (min-width: 1000px) { 
-        .avatar { 
-          width: 52px; 
-          height: 52px; 
-          flex: 0 0 52px; 
-        } 
-        .month-title { 
-          font-size: 18px; 
-        } 
+      @media (min-width: 1000px) {
+        .avatar {
+          width: 52px;
+          height: 52px;
+          flex: 0 0 52px;
+        }
+        .month-title {
+          font-size: 18px;
+        }
       }
     </style>
   </head>
@@ -532,7 +559,9 @@
         </div>
 
         <div class="controls">
-          <label style="font-size: 13px; color: var(--muted); margin-right: 6px">
+          <label
+            style="font-size: 13px; color: var(--muted); margin-right: 6px"
+          >
             Year
           </label>
           <input
@@ -599,37 +628,65 @@
         Birthday config (edit photos in /images folder)
       ---------------------------- */
       const birthdays = [
-    { name: "Ranjith Krishna", month: 2, day: 21, photo: "images/krisna.jpg", notes: "Admin" },
-    { name: "Velmurugan", month: 11, day: 18, photo: "images/vel.png", notes: "Friend" },
-    { name: "Rajesh", month: 11, day: 23, photo: "images/rajesh.jpg", notes: "leader" },
-    { name: "Arjun", month: 3, day: 15, photo: "", notes: "Cousin" },
-    { name: "Karthik", month: 6, day: 8, photo: "", notes: "Colleague" },
-    { name: "Suresh", month: 9, day: 12, photo: "", notes: "Neighbor" },
-    { name: "Mohan", month: 1, day: 25, photo: "", notes: "Classmate" },
-    { name: "Prakash", month: 4, day: 3, photo: "", notes: "Teammate" },
-    { name: "Gopal", month: 7, day: 19, photo: "", notes: "Friend" },
-    { name: "Senthil", month: 12, day: 7, photo: "", notes: "Relative" },
-    { name: "Dinesh", month: 5, day: 30, photo: "", notes: "Brother" },
-    { name: "Ramesh", month: 8, day: 14, photo: "", notes: "Cousin" },
-    { name: "Harish", month: 10, day: 22, photo: "", notes: "Colleague" },
-    { name: "Naveen", month: 2, day: 11, photo: "", notes: "Friend" },
-    { name: "Vikram", month: 11, day: 5, photo: "", notes: "Neighbor" },
-    { name: "Sanjay", month: 3, day: 28, photo: "", notes: "Classmate" },
-    { name: "Balaji", month: 6, day: 17, photo: "", notes: "Relative" },
-    { name: "Kannan", month: 9, day: 9, photo: "", notes: "Teammate" },
-    { name: "Manikandan", month: 1, day: 31, photo: "", notes: "Friend" },
-    { name: "Sathish", month: 4, day: 26, photo: "", notes: "Colleague" }
-];
+        {
+          name: "Ranjith Krishna",
+          month: 2,
+          day: 21,
+          photo: "images/krisna.jpg",
+          notes: "Admin",
+        },
+        {
+          name: "Velmurugan",
+          month: 11,
+          day: 18,
+          photo: "images/vel.jpg",
+          notes: "Friend",
+        },
+        {
+          name: "Rajesh",
+          month: 11,
+          day: 23,
+          photo: "images/rajesh.jpg",
+          notes: "leader",
+        },
+        { name: "Raj", month: 4, day: 11, photo: "images/raj.jpg", notes: "Cousin" },
+        { name: "gokul", month: 6, day: 21, photo: "images/gokul.jpg", notes: "Colleague" },
+        { name: "Veera Muthu", month: 12, day: 18, photo: "images/gems.jpg", notes: "Neighbor" },
+        { name: "Thiru muragan", month: 1, day: 2, photo: "images/thiru.jpg", notes: "Classmate" },
+      ];
 
       /* ---------------------------
         DOM cache & helpers
       ---------------------------- */
       const monthColors = [
-        "#FF6B6B","#FFB86B","#FFD36B","#A0E86B","#6BE3FF","#6B9BFF",
-        "#A96BFF","#FF6BDE","#FF8DAA","#8EE3A1","#FFD7A6","#C8E7FF"
+        "#FF6B6B",
+        "#FFB86B",
+        "#FFD36B",
+        "#A0E86B",
+        "#6BE3FF",
+        "#6B9BFF",
+        "#A96BFF",
+        "#FF6BDE",
+        "#FF8DAA",
+        "#8EE3A1",
+        "#FFD7A6",
+        "#C8E7FF",
       ];
-      const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-      const weekdayNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+      const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      const weekdayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
       const monthsEl = document.getElementById("months");
       const yearInput = document.getElementById("yearInput");
@@ -647,7 +704,10 @@
       const closeModalBtn = document.getElementById("closeModal");
 
       const confettiCanvas = document.getElementById("confetti");
-      const ctx = (confettiCanvas && confettiCanvas.getContext) ? confettiCanvas.getContext("2d") : null;
+      const ctx =
+        confettiCanvas && confettiCanvas.getContext
+          ? confettiCanvas.getContext("2d")
+          : null;
 
       /* optional audio element in your HTML with id="wishSound" */
       const wishSound = document.getElementById("wishSound") || null;
@@ -665,8 +725,13 @@
         const tDay = today.getDate();
 
         // Today list
-        const todayList = birthdays.filter((b) => b.month === tMonth && b.day === tDay);
-        const todayMsg = todayList.length > 0 ? `🎉 Today: ${todayList.map((b) => b.name).join(", ")}` : "No birthdays today.";
+        const todayList = birthdays.filter(
+          (b) => b.month === tMonth && b.day === tDay
+        );
+        const todayMsg =
+          todayList.length > 0
+            ? `🎉 Today: ${todayList.map((b) => b.name).join(", ")}`
+            : "No birthdays today.";
         if (todayEl) todayEl.innerText = todayMsg;
 
         // Upcoming (after today)
@@ -674,33 +739,40 @@
         const upcoming = birthdays
           .map((b) => ({ ...b, dateNumber: b.month * 100 + b.day }))
           .filter((b) => b.dateNumber > todayNumber)
-          .sort((a,b) => a.dateNumber - b.dateNumber);
+          .sort((a, b) => a.dateNumber - b.dateNumber);
 
-        const upMsg = upcoming.length > 0
-          ? `🎂 Upcoming: ${upcoming[0].name} — ${String(upcoming[0].day).padStart(2,'0')}-${String(upcoming[0].month).padStart(2,'0')}`
-          : "No upcoming birthdays.";
+        const upMsg =
+          upcoming.length > 0
+            ? `🎂 Upcoming: ${upcoming[0].name} — ${String(
+                upcoming[0].day
+              ).padStart(2, "0")}-${String(upcoming[0].month).padStart(2, "0")}`
+            : "No upcoming birthdays.";
         if (upcomingEl) upcomingEl.innerText = upMsg;
       }
 
       /* ---------------------------
         Render months (compact list-of-birthdays per month)
       ---------------------------- */
-      function renderAll(){
-        const year = (yearInput && parseInt(yearInput.value,10)) || new Date().getFullYear();
+      function renderAll() {
+        const year =
+          (yearInput && parseInt(yearInput.value, 10)) ||
+          new Date().getFullYear();
         if (!monthsEl) return;
         monthsEl.innerHTML = "";
 
         // group birthdays by month
-        const byMonth = Array.from({length:12},()=>[]);
-        birthdays.forEach(b => { if (b.month>=1 && b.month<=12) byMonth[b.month-1].push(b); });
+        const byMonth = Array.from({ length: 12 }, () => []);
+        birthdays.forEach((b) => {
+          if (b.month >= 1 && b.month <= 12) byMonth[b.month - 1].push(b);
+        });
 
-        for (let m=0;m<12;m++){
+        for (let m = 0; m < 12; m++) {
           const color = monthColors[m % monthColors.length];
           const card = document.createElement("div");
           card.className = "month-card";
           card.style.setProperty("--accent", color);
 
-          const head = document.createElement("div"); 
+          const head = document.createElement("div");
           head.className = "month-head";
           const title = document.createElement("div");
           title.innerHTML = `<div class="month-title">${monthNames[m]}</div><div class="month-sub">${year}</div>`;
@@ -709,60 +781,72 @@
           count.innerHTML = `<div style="font-weight:800;color:#222">${byMonth[m].length} <span style="font-weight:600;color:var(--muted);font-size:13px"> birthdays</span></div>`;
           head.appendChild(count);
 
-          const list = document.createElement("div"); 
+          const list = document.createElement("div");
           list.className = "birth-list";
 
-          byMonth[m].sort((a,b)=>a.day-b.day).forEach(b => {
-            const item = document.createElement("div");
-            item.className = "birth";
-            // Add data-month attribute for hover effects
-            item.setAttribute("data-month", b.month);
-            
-            // change outside tint of card on item hover
-            item.addEventListener("mouseenter", ()=> { card.style.boxShadow = `0 12px 30px ${hexToRgba(color,0.12)}`; });
-            item.addEventListener("mouseleave", ()=> { card.style.boxShadow = ""; });
+          byMonth[m]
+            .sort((a, b) => a.day - b.day)
+            .forEach((b) => {
+              const item = document.createElement("div");
+              item.className = "birth";
+              // Add data-month attribute for hover effects
+              item.setAttribute("data-month", b.month);
 
-            const img = document.createElement("img"); 
-            img.className = "avatar";
-            img.src = b.photo || "https://i.pravatar.cc/100"; 
-            img.alt = b.name;
-            img.addEventListener("mouseenter", ()=> img.classList.add("glow"));
-            img.addEventListener("mouseleave", ()=> img.classList.remove("glow"));
+              // change outside tint of card on item hover
+              item.addEventListener("mouseenter", () => {
+                card.style.boxShadow = `0 12px 30px ${hexToRgba(color, 0.12)}`;
+              });
+              item.addEventListener("mouseleave", () => {
+                card.style.boxShadow = "";
+              });
 
-            const info = document.createElement("div"); 
-            info.className = "binfo";
-            const name = document.createElement("div"); 
-            name.className = "bname"; 
-            name.textContent = b.name;
-            const date = document.createElement("div"); 
-            date.className = "bdate";
-            const dt = new Date(year, m, b.day);
-            const dayName = isValidDate(dt) ? weekdayNames[dt.getDay()] : "Invalid";
-            date.innerHTML = `<strong>${b.day}</strong> ${monthNames[m]} <span class="weekday">${dayName}</span>`;
+              const img = document.createElement("img");
+              img.className = "avatar";
+              img.src = b.photo || "https://i.pravatar.cc/100";
+              img.alt = b.name;
+              img.addEventListener("mouseenter", () =>
+                img.classList.add("glow")
+              );
+              img.addEventListener("mouseleave", () =>
+                img.classList.remove("glow")
+              );
 
-            info.appendChild(name); 
-            info.appendChild(date);
-            item.appendChild(img); 
-            item.appendChild(info);
+              const info = document.createElement("div");
+              info.className = "binfo";
+              const name = document.createElement("div");
+              name.className = "bname";
+              name.textContent = b.name;
+              const date = document.createElement("div");
+              date.className = "bdate";
+              const dt = new Date(year, m, b.day);
+              const dayName = isValidDate(dt)
+                ? weekdayNames[dt.getDay()]
+                : "Invalid";
+              date.innerHTML = `<strong>${b.day}</strong> ${monthNames[m]} <span class="weekday">${dayName}</span>`;
 
-            item.addEventListener("click", ()=> openModal(b, year, m+1));
-            list.appendChild(item);
-          });
+              info.appendChild(name);
+              info.appendChild(date);
+              item.appendChild(img);
+              item.appendChild(info);
 
-          const accent = document.createElement("div"); 
-          accent.className = "accent"; 
+              item.addEventListener("click", () => openModal(b, year, m + 1));
+              list.appendChild(item);
+            });
+
+          const accent = document.createElement("div");
+          accent.className = "accent";
           accent.style.background = color;
 
-          card.appendChild(head); 
-          card.appendChild(list); 
+          card.appendChild(head);
+          card.appendChild(list);
           card.appendChild(accent);
           monthsEl.appendChild(card);
         }
       }
 
       /* helper: check valid date (month/day exists) */
-      function isValidDate(d){ 
-        return d instanceof Date && !isNaN(d); 
+      function isValidDate(d) {
+        return d instanceof Date && !isNaN(d);
       }
 
       /* ---------------------------
@@ -770,29 +854,36 @@
       ---------------------------- */
       let currentModalData = null;
 
-      function openModal(b, year, month){
-        currentModalData = {b, year, month};
-        if (modalAvatar) modalAvatar.src = b.photo || "https://i.pravatar.cc/200";
+      function openModal(b, year, month) {
+        currentModalData = { b, year, month };
+        if (modalAvatar)
+          modalAvatar.src = b.photo || "https://i.pravatar.cc/200";
         if (mTitle) mTitle.textContent = b.name;
-        const dt = new Date(year, month-1, b.day);
-        const dateStr = isValidDate(dt) ? `${weekdayNames[dt.getDay()]}, ${b.day} ${monthNames[month-1]} ${year}` : `Invalid Date (${b.day}/${month}/${year})`;
+        const dt = new Date(year, month - 1, b.day);
+        const dateStr = isValidDate(dt)
+          ? `${weekdayNames[dt.getDay()]}, ${b.day} ${
+              monthNames[month - 1]
+            } ${year}`
+          : `Invalid Date (${b.day}/${month}/${year})`;
         if (mDate) mDate.textContent = dateStr;
         if (mNotes) mNotes.textContent = b.notes || "";
         if (mAge) mAge.textContent = "";
-        
+
         // Show modal using the CSS class
-        if (modal){
+        if (modal) {
           modal.classList.add("show");
         }
       }
 
-      function closeModalHandler(){
+      function closeModalHandler() {
         // stop audio if playing
-        if (wishSound && !wishSound.paused){
-          try { 
-            wishSound.pause(); 
-            wishSound.currentTime = 0; 
-          } catch(e){ /* ignore */ }
+        if (wishSound && !wishSound.paused) {
+          try {
+            wishSound.pause();
+            wishSound.currentTime = 0;
+          } catch (e) {
+            /* ignore */
+          }
         }
         // stop confetti by clearing array (confetti loop will finish)
         confettis = [];
@@ -800,45 +891,52 @@
         const container = document.getElementById("balloons");
         if (container) container.innerHTML = "";
         // hide modal using CSS class
-        if (modal){
+        if (modal) {
           modal.classList.remove("show");
         }
       }
 
       /* attach close handlers (safe only-if elements exist) */
-      if (closeModalBtn) closeModalBtn.addEventListener("click", closeModalHandler);
-      if (modal) modal.addEventListener("click", (e)=> { if (e.target === modal) closeModalHandler(); });
+      if (closeModalBtn)
+        closeModalBtn.addEventListener("click", closeModalHandler);
+      if (modal)
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) closeModalHandler();
+        });
 
       /* ---------------------------
         Wish button: play audio, confetti, balloons
       ---------------------------- */
-      if (wishBtn) wishBtn.addEventListener("click", async () => {
-        if (!currentModalData) return;
+      if (wishBtn)
+        wishBtn.addEventListener("click", async () => {
+          if (!currentModalData) return;
 
-        // audio: restart and play (safe)
-        if (wishSound){
-          try {
-            wishSound.currentTime = 0;
-            // play returns a promise; catch failures (autoplay restrictions)
-            await wishSound.play();
-          } catch (err) { /* ignore autoplay errors */ }
-        }
+          // audio: restart and play (safe)
+          if (wishSound) {
+            try {
+              wishSound.currentTime = 0;
+              // play returns a promise; catch failures (autoplay restrictions)
+              await wishSound.play();
+            } catch (err) {
+              /* ignore autoplay errors */
+            }
+          }
 
-        // visuals
-        launchConfetti();
-        spawnBalloonsBurst(12, 5000);
+          // visuals
+          launchConfetti();
+          spawnBalloonsBurst(12, 5000);
 
-        // button UI
-        wishBtn.disabled = true;
-        const prev = wishBtn.textContent;
-        wishBtn.textContent = "Celebrating... 🎉";
-        setTimeout(()=> { 
-          if (wishBtn){ 
-            wishBtn.disabled = false; 
-            wishBtn.textContent = prev; 
-          } 
-        }, 2400);
-      });
+          // button UI
+          wishBtn.disabled = true;
+          const prev = wishBtn.textContent;
+          wishBtn.textContent = "Celebrating... 🎉";
+          setTimeout(() => {
+            if (wishBtn) {
+              wishBtn.disabled = false;
+              wishBtn.textContent = prev;
+            }
+          }, 2400);
+        });
 
       /* ---------------------------
         Confetti system
@@ -846,163 +944,194 @@
       let confettis = [];
       let lastTime = performance.now();
       let animating = false;
-      let cw = 0, ch = 0;
+      let cw = 0,
+        ch = 0;
 
-      function resizeCanvas(){
+      function resizeCanvas() {
         if (!confettiCanvas || !ctx) return;
         cw = confettiCanvas.width = window.innerWidth;
         ch = confettiCanvas.height = window.innerHeight;
       }
-      
+
       resizeCanvas();
       window.addEventListener("resize", resizeCanvas);
 
       class Confetto {
-        constructor(x,y,vy,size,color,tilt,tiltSpeed,rot){
-          this.x=x; 
-          this.y=y; 
-          this.vy=vy; 
-          this.size=size; 
-          this.color=color;
-          this.tilt = tilt; 
-          this.tiltSpeed = tiltSpeed; 
-          this.rot = rot; 
-          this.vx = (Math.random()-0.5)*1.6;
+        constructor(x, y, vy, size, color, tilt, tiltSpeed, rot) {
+          this.x = x;
+          this.y = y;
+          this.vy = vy;
+          this.size = size;
+          this.color = color;
+          this.tilt = tilt;
+          this.tiltSpeed = tiltSpeed;
+          this.rot = rot;
+          this.vx = (Math.random() - 0.5) * 1.6;
         }
-        
-        step(dt){
+
+        step(dt) {
           this.x += this.vx * dt;
           this.y += this.vy * dt;
           this.tilt += this.tiltSpeed * dt;
           this.rot += 0.02 * dt;
         }
-        
-        draw(c){
+
+        draw(c) {
           c.save();
           c.translate(this.x, this.y);
           c.rotate(this.rot);
           c.fillStyle = this.color;
-          c.fillRect(-this.size/2, -this.size/2 + Math.sin(this.tilt)*6, this.size, this.size/1.6);
+          c.fillRect(
+            -this.size / 2,
+            -this.size / 2 + Math.sin(this.tilt) * 6,
+            this.size,
+            this.size / 1.6
+          );
           c.restore();
         }
       }
 
-      function animateConfetti(now){
+      function animateConfetti(now) {
         if (!ctx) return;
         const dt = Math.min(60, now - lastTime) / 16.666;
         lastTime = now;
-        ctx.clearRect(0,0,cw,ch);
-        for (let i = confettis.length-1; i>=0; i--){
+        ctx.clearRect(0, 0, cw, ch);
+        for (let i = confettis.length - 1; i >= 0; i--) {
           const p = confettis[i];
           p.step(dt);
           p.draw(ctx);
-          if (p.y > ch + 40 || p.x < -60 || p.x > cw + 60) confettis.splice(i,1);
+          if (p.y > ch + 40 || p.x < -60 || p.x > cw + 60)
+            confettis.splice(i, 1);
         }
         if (confettis.length === 0) animating = false;
         else requestAnimationFrame(animateConfetti);
       }
 
-      function launchConfetti(){
+      function launchConfetti() {
         if (!ctx) return;
-        const colors = ["#ff6b6b","#ffd36b","#6be3ff","#6b9bff","#a96bff","#8ee3a1"];
+        const colors = [
+          "#ff6b6b",
+          "#ffd36b",
+          "#6be3ff",
+          "#6b9bff",
+          "#a96bff",
+          "#8ee3a1",
+        ];
         const originX = cw * 0.5;
         const originY = ch * 0.2;
-        for (let i=0;i<80;i++){
-          const x = originX + (Math.random()-0.5) * 400;
-          const y = originY + (Math.random()-0.5) * 60;
-          const vy = 1.2 + Math.random()*3.0;
-          const size = 6 + Math.random()*10;
-          const color = colors[Math.floor(Math.random()*colors.length)];
-          const tilt = Math.random()*6;
-          const tiltSpeed = 0.05 + Math.random()*0.2;
-          const rot = Math.random()*6;
-          confettis.push(new Confetto(x,y,vy,size,color,tilt,tiltSpeed,rot));
+        for (let i = 0; i < 80; i++) {
+          const x = originX + (Math.random() - 0.5) * 400;
+          const y = originY + (Math.random() - 0.5) * 60;
+          const vy = 1.2 + Math.random() * 3.0;
+          const size = 6 + Math.random() * 10;
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          const tilt = Math.random() * 6;
+          const tiltSpeed = 0.05 + Math.random() * 0.2;
+          const rot = Math.random() * 6;
+          confettis.push(
+            new Confetto(x, y, vy, size, color, tilt, tiltSpeed, rot)
+          );
         }
-        if (!animating){ 
-          animating = true; 
-          lastTime = performance.now(); 
-          requestAnimationFrame(animateConfetti); 
+        if (!animating) {
+          animating = true;
+          lastTime = performance.now();
+          requestAnimationFrame(animateConfetti);
         }
       }
 
       /* ---------------------------
         Balloons: spawn burst and auto-remove
       ---------------------------- */
-      function ensureBalloonContainer(){
+      function ensureBalloonContainer() {
         let c = document.getElementById("balloons");
-        if (!c){
+        if (!c) {
           c = document.createElement("div");
           c.id = "balloons";
-          Object.assign(c.style,{ 
-            position:"fixed", 
-            inset:"0", 
-            pointerEvents:"none", 
-            overflow:"hidden", 
-            zIndex:75 
+          Object.assign(c.style, {
+            position: "fixed",
+            inset: "0",
+            pointerEvents: "none",
+            overflow: "hidden",
+            zIndex: 75,
           });
           document.body.appendChild(c);
         }
         return c;
       }
 
-      function spawnBalloonsBurst(count=10, lifetime=5000){
+      function spawnBalloonsBurst(count = 10, lifetime = 5000) {
         const container = ensureBalloonContainer();
         const created = [];
-        for (let i=0;i<count;i++){
+        for (let i = 0; i < count; i++) {
           const b = document.createElement("div");
           b.className = "balloon";
           Object.assign(b.style, {
             position: "absolute",
-            width: (40 + Math.random()*30) + "px",
-            height: (55 + Math.random()*30) + "px",
-            left: Math.random()*80 + 10 + "vw",
+            width: 40 + Math.random() * 30 + "px",
+            height: 55 + Math.random() * 30 + "px",
+            left: Math.random() * 80 + 10 + "vw",
             bottom: "-120px",
             borderRadius: "50% 50% 50% 50%",
-            transform: `translateY(0) rotate(${Math.random()*30-15}deg)`,
+            transform: `translateY(0) rotate(${Math.random() * 30 - 15}deg)`,
             background: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), ${randomBalloonColor()})`,
             boxShadow: "0 8px 18px rgba(0,0,0,0.12)",
             opacity: "0.95",
             pointerEvents: "none",
             zIndex: 76,
-            transition: `transform ${4 + Math.random()*3}s linear, opacity 1s ease`
+            transition: `transform ${
+              4 + Math.random() * 3
+            }s linear, opacity 1s ease`,
           });
           container.appendChild(b);
-          setTimeout(()=> { 
-            b.style.transform = `translateY(-120vh) rotate(${Math.random()*60-30}deg)`; 
-            b.style.opacity = "1"; 
-          }, 50 + Math.random()*300);
+          setTimeout(() => {
+            b.style.transform = `translateY(-120vh) rotate(${
+              Math.random() * 60 - 30
+            }deg)`;
+            b.style.opacity = "1";
+          }, 50 + Math.random() * 300);
           created.push(b);
         }
-        setTimeout(()=> { created.forEach(el=>el.remove()); }, lifetime + 1200);
+        setTimeout(() => {
+          created.forEach((el) => el.remove());
+        }, lifetime + 1200);
       }
 
-      function randomBalloonColor(){
-        const colors = ["#FF6B6B","#FFD36B","#6BE3FF","#A96BFF","#6BFFA3","#FF82C2","#FFD7A6"];
-        return colors[Math.floor(Math.random()*colors.length)];
+      function randomBalloonColor() {
+        const colors = [
+          "#FF6B6B",
+          "#FFD36B",
+          "#6BE3FF",
+          "#A96BFF",
+          "#6BFFA3",
+          "#FF82C2",
+          "#FFD7A6",
+        ];
+        return colors[Math.floor(Math.random() * colors.length)];
       }
 
       /* ---------------------------
         Utility helpers
       ---------------------------- */
-      function hexToRgba(hex, alpha = 1){
-        const h = hex.replace("#","");
-        const r = parseInt(h.substring(0,2),16);
-        const g = parseInt(h.substring(2,4),16);
-        const b = parseInt(h.substring(4,6),16);
+      function hexToRgba(hex, alpha = 1) {
+        const h = hex.replace("#", "");
+        const r = parseInt(h.substring(0, 2), 16);
+        const g = parseInt(h.substring(2, 4), 16);
+        const b = parseInt(h.substring(4, 6), 16);
         return `rgba(${r},${g},${b},${alpha})`;
       }
-      
-      function shadeColor(hex, percent){
-        let R = parseInt(hex.substring(1,3),16);
-        let G = parseInt(hex.substring(3,5),16);
-        let B = parseInt(hex.substring(5,7),16);
-        R = parseInt((R*(100+percent))/100); 
-        G = parseInt((G*(100+percent))/100); 
-        B = parseInt((B*(100+percent))/100);
-        R = R<255?R:255; 
-        G = G<255?G:255; 
-        B = B<255?B:255;
-        const toHex = v => v.toString(16).length===1 ? "0"+v.toString(16) : v.toString(16);
+
+      function shadeColor(hex, percent) {
+        let R = parseInt(hex.substring(1, 3), 16);
+        let G = parseInt(hex.substring(3, 5), 16);
+        let B = parseInt(hex.substring(5, 7), 16);
+        R = parseInt((R * (100 + percent)) / 100);
+        G = parseInt((G * (100 + percent)) / 100);
+        B = parseInt((B * (100 + percent)) / 100);
+        R = R < 255 ? R : 255;
+        G = G < 255 ? G : 255;
+        B = B < 255 ? B : 255;
+        const toHex = (v) =>
+          v.toString(16).length === 1 ? "0" + v.toString(16) : v.toString(16);
         return "#" + toHex(R) + toHex(G) + toHex(B);
       }
 
@@ -1010,9 +1139,9 @@
         Auto year-rollover watcher
       ---------------------------- */
       let lastSeenYear = new Date().getFullYear();
-      setInterval(()=> {
+      setInterval(() => {
         const nowYear = new Date().getFullYear();
-        if (nowYear !== lastSeenYear){
+        if (nowYear !== lastSeenYear) {
           lastSeenYear = nowYear;
           if (yearInput) yearInput.value = nowYear;
           renderAll();
@@ -1023,23 +1152,35 @@
       /* ---------------------------
         Wire up controls & init
       ---------------------------- */
-      if (refreshBtn) refreshBtn.addEventListener("click", ()=> { renderAll(); checkBirthdays(); });
-      if (yearInput){
-        yearInput.addEventListener("change", ()=> { renderAll(); checkBirthdays(); });
-        yearInput.addEventListener("keydown", (e)=> { if (e.key === "Enter"){ renderAll(); checkBirthdays(); }});
+      if (refreshBtn)
+        refreshBtn.addEventListener("click", () => {
+          renderAll();
+          checkBirthdays();
+        });
+      if (yearInput) {
+        yearInput.addEventListener("change", () => {
+          renderAll();
+          checkBirthdays();
+        });
+        yearInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            renderAll();
+            checkBirthdays();
+          }
+        });
       }
 
       renderAll();
       checkBirthdays();
 
       /* expose small API for debugging */
-      window._birthdayCalendar = { 
-        renderAll, 
-        checkBirthdays, 
-        spawnBalloonsBurst, 
-        launchConfetti, 
-        openModal, 
-        closeModalHandler 
+      window._birthdayCalendar = {
+        renderAll,
+        checkBirthdays,
+        spawnBalloonsBurst,
+        launchConfetti,
+        openModal,
+        closeModalHandler,
       };
     </script>
 
