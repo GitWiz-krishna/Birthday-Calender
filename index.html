@@ -31,11 +31,11 @@
         background: var(--bg);
         color: var(--text);
         -webkit-font-smoothing: antialiased;
-        padding: 28px;
+        padding: 20px;
       }
 
       .container {
-        max-width: 1100px;
+        max-width: 1200px;
         margin: 0 auto;
       }
 
@@ -44,57 +44,45 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 18px;
-        gap: 12px;
+        margin-bottom: 20px;
+        gap: 15px;
+        flex-wrap: wrap;
       }
 
       h1 {
-        font-size: 20px;
+        font-size: 24px;
         margin: 0;
-        font-weight: 600;
+        font-weight: 700;
       }
 
       .controls {
         display: flex;
-        gap: 8px;
+        gap: 10px;
         align-items: center;
+        flex-wrap: wrap;
       }
 
       input[type="number"] {
-        width: 110px;
-        padding: 10px;
-        border-radius: 10px;
-        border: 1px solid #e6e6e6;
+        width: 120px;
+        padding: 12px 15px;
+        border-radius: 12px;
+        border: 2px solid #e6e6e6;
         background: #fff;
         font-weight: 600;
+        font-size: 16px;
       }
 
       .year-label {
-        font-size: 13px;
+        font-size: 14px;
         color: var(--muted);
+        font-weight: 500;
       }
 
       /* 03 - Responsive months grid -------------------------------------------- */
       .months {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 14px;
-      }
-
-      @media (max-width: 880px) {
-        .months {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-
-      @media (max-width: 520px) {
-        .months {
-          grid-template-columns: 1fr;
-        }
-        header {
-          flex-direction: column;
-          align-items: flex-start;
-        }
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
       }
 
       /* 04 - Month card --------------------------------------------------------- */
@@ -102,68 +90,36 @@
         border-radius: var(--radius);
         background: linear-gradient(
           180deg,
-          rgba(255, 255, 255, 0.7),
-          rgba(255, 255, 255, 0.9)
+          rgba(255, 255, 255, 0.9),
+          rgba(255, 255, 255, 0.95)
         );
         box-shadow: var(--shadow);
-        padding: 14px;
+        padding: 20px;
         position: relative;
         overflow: visible;
-        transition: transform 0.22s ease, box-shadow 0.22s ease,
-          border-color 0.22s ease;
-        border: 1px solid transparent;
+        transition: all 0.25s ease;
+        border: 1px solid rgba(255, 255, 255, 0.8);
       }
 
       .month-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 14px 26px rgba(0, 0, 0, 0.12);
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.95),
-          rgba(250, 250, 250, 1)
-        );
-        border-color: rgba(0, 0, 0, 0.05);
-      }
-
-      .month-card::before {
-        content: "";
-        position: absolute;
-        inset: -8px;
-        border-radius: calc(var(--radius) + 8px);
-        background: linear-gradient(
-          90deg,
-          rgba(255, 255, 255, 0),
-          rgba(255, 255, 255, 0)
-        );
-        z-index: -1;
-        transition: all 0.28s ease;
-        pointer-events: none;
-      }
-
-      .month-card:hover::before {
-        background: linear-gradient(
-          180deg,
-          var(--hover-color, rgba(0, 0, 0, 0.02)),
-          rgba(255, 255, 255, 0)
-        );
-        filter: blur(8px);
-        opacity: 0.95;
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
       }
 
       .month-head {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 8px;
+        margin-bottom: 15px;
       }
 
       .month-title {
         font-weight: 700;
-        font-size: 16px;
+        font-size: 18px;
       }
 
       .month-sub {
-        font-size: 12px;
+        font-size: 13px;
         color: var(--muted);
       }
 
@@ -171,48 +127,51 @@
       .birth-list {
         display: flex;
         flex-direction: column;
-        gap: 8px;
-        margin-top: 6px;
+        gap: 12px;
+        margin-top: 10px;
       }
 
       .birth {
         display: flex;
         align-items: center;
-        gap: 10px;
-        padding: 8px;
+        gap: 12px;
+        padding: 12px;
         border-radius: 12px;
         cursor: pointer;
-        transition: background 0.18s ease, transform 0.18s ease,
-          box-shadow 0.18s ease;
+        transition: all 0.2s ease;
         background: transparent;
         --hover-color: rgba(0, 0, 0, 0.03);
+        border: 2px solid transparent;
+        min-height: 70px;
       }
 
       .birth:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        background: rgba(255, 255, 255, 0.8);
       }
 
       .birth:focus {
         outline: 3px solid rgba(100, 150, 255, 0.18);
-        transform: translateY(-4px);
+        transform: translateY(-3px);
       }
 
       .avatar {
-        width: 44px;
-        height: 44px;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
-        object-fit: cover; /* crops the image */
-        object-position: center; /* centers the face */
-        border: 3px solid rgba(255, 255, 255, 0.5);
-        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
-        transition: transform 0.18s ease, filter 0.18s ease;
+        object-fit: cover;
+        object-position: center;
+        border: 3px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+        transition: all 0.2s ease;
+        flex-shrink: 0;
       }
 
       .avatar.glow {
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12),
-          0 0 18px rgba(255, 255, 255, 0.06) inset;
-        transform: scale(1.05);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15),
+          0 0 18px rgba(255, 255, 255, 0.08) inset;
+        transform: scale(1.08);
       }
 
       /* Month-based avatar hover colors */
@@ -283,24 +242,27 @@
 
       .bname {
         font-weight: 600;
-        font-size: 14px;
+        font-size: 15px;
       }
 
       .bdate {
         font-size: 13px;
         color: var(--muted);
-        margin-top: 3px;
+        margin-top: 4px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
       }
 
       .weekday {
         display: inline-block;
-        margin-left: 8px;
-        font-size: 12px;
+        font-size: 11px;
         color: #222;
         opacity: 0.8;
-        padding: 4px 8px;
+        padding: 3px 8px;
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.2);
         font-weight: 600;
       }
 
@@ -318,15 +280,15 @@
       /* Highlight for today's birthday */
       .birth.today {
         outline: 3px solid rgba(255, 215, 0, 0.95);
-        box-shadow: 0 14px 36px rgba(255, 203, 64, 0.12),
-          0 4px 12px rgba(0, 0, 0, 0.06);
-        transform: translateY(-6px) scale(1.01);
+        box-shadow: 0 14px 36px rgba(255, 203, 64, 0.15),
+          0 4px 12px rgba(0, 0, 0, 0.08);
+        transform: translateY(-4px) scale(1.02);
         background: linear-gradient(
           180deg,
           rgba(255, 250, 220, 0.95),
-          rgba(255, 245, 200, 0.6)
+          rgba(255, 245, 200, 0.7)
         );
-        border: 1px solid rgba(255, 215, 0, 0.2);
+        border: 1px solid rgba(255, 215, 0, 0.3);
       }
 
       .birth.today .avatar {
@@ -335,14 +297,19 @@
 
       @keyframes pulseGlow {
         0% {
-          box-shadow: 0 8px 20px rgba(255, 215, 0, 0.06);
+          box-shadow: 0 8px 20px rgba(255, 215, 0, 0.08);
         }
         50% {
-          box-shadow: 0 18px 40px rgba(255, 215, 0, 0.12);
+          box-shadow: 0 18px 40px rgba(255, 215, 0, 0.15);
         }
         100% {
-          box-shadow: 0 8px 20px rgba(255, 215, 0, 0.06);
+          box-shadow: 0 8px 20px rgba(255, 215, 0, 0.08);
         }
+      }
+
+      .birth.hover-border {
+        border-color: var(--accent);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       }
 
       /* 06 - Accent band & misc ------------------------------------------------ */
@@ -359,14 +326,15 @@
       .modal-backdrop {
         position: fixed;
         inset: 0;
-        background: rgba(6, 7, 8, 0.45);
+        background: rgba(6, 7, 8, 0.6);
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 120;
         opacity: 0;
         pointer-events: none;
-        transition: opacity 0.22s ease;
+        transition: opacity 0.25s ease;
+        padding: 20px;
       }
 
       .modal-backdrop.show {
@@ -375,16 +343,16 @@
       }
 
       .modal {
-        width: 360px;
-        max-width: 92%;
+        width: 380px;
+        max-width: 95%;
         background: linear-gradient(180deg, #fff, #fbfbfb);
-        border-radius: 16px;
-        padding: 18px;
-        box-shadow: 0 30px 60px rgba(2, 6, 23, 0.22);
+        border-radius: 18px;
+        padding: 20px;
+        box-shadow: 0 30px 60px rgba(2, 6, 23, 0.25);
         text-align: center;
         position: relative;
-        transform: translateY(6px);
-        transition: transform 0.22s ease, opacity 0.22s ease;
+        transform: translateY(10px);
+        transition: transform 0.25s ease, opacity 0.25s ease;
         opacity: 0;
       }
 
@@ -399,46 +367,63 @@
         border-radius: 50%;
         object-fit: cover;
         border: 6px solid white;
-        margin: -60px auto 8px;
-        box-shadow: 0 12px 30px rgba(17, 18, 19, 0.12);
+        margin: -70px auto 12px;
+        box-shadow: 0 15px 35px rgba(17, 18, 19, 0.15);
       }
 
       .modal h2 {
-        margin: 6px 0 0;
-        font-size: 20px;
+        margin: 8px 0 0;
+        font-size: 22px;
+        font-weight: 700;
       }
 
       .modal p {
         color: var(--muted);
-        margin: 6px 0 12px;
+        margin: 8px 0 15px;
+        font-size: 15px;
       }
 
       .wish-btn {
-        margin-top: 8px;
-        padding: 10px 18px;
+        margin-top: 15px;
+        padding: 12px 24px;
         border-radius: 12px;
         border: 0;
         font-weight: 700;
         cursor: pointer;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        font-size: 15px;
+        transition: all 0.2s ease;
+      }
+
+      .wish-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
       }
 
       .close-x {
         position: absolute;
-        right: 12px;
-        top: 8px;
+        right: 15px;
+        top: 12px;
         border-radius: 8px;
-        padding: 6px;
+        padding: 8px;
         border: 0;
         background: transparent;
         color: #333;
         font-weight: 700;
         cursor: pointer;
+        font-size: 18px;
+        transition: all 0.2s ease;
+      }
+
+      .close-x:hover {
+        background: rgba(0, 0, 0, 0.05);
       }
 
       .age-info {
         font-size: 13px;
         color: var(--muted);
-        margin-top: 6px;
+        margin-top: 8px;
       }
 
       /* 08 - Confetti / Canvas ------------------------------------------------- */
@@ -475,21 +460,6 @@
         pointer-events: none;
       }
 
-      #balloons .balloon.small {
-        width: 26px;
-        height: 36px;
-      }
-
-      #balloons .balloon {
-        width: 34px;
-        height: 46px;
-      }
-
-      #balloons .balloon.large {
-        width: 54px;
-        height: 74px;
-      }
-
       @keyframes floatUp {
         0% {
           transform: translateY(60px) rotate(0deg);
@@ -502,23 +472,45 @@
       }
 
       /* 10 - Today / Upcoming badges & footer ---------------------------------- */
-      #todayBirth,
-      #upcomingBirth {
-        display: inline-block;
-        font-weight: 700;
+      .info-bar {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
         font-size: 14px;
-        color: #111;
-        margin: 6px 0;
-        line-height: 1.2;
-        background: rgba(255, 255, 255, 0.9);
-        border: 1px solid rgba(0, 0, 0, 0.04);
-        padding: 8px 12px;
-        border-radius: 10px;
-        box-shadow: 0 6px 16px rgba(2, 6, 23, 0.04);
+        font-weight: 600;
+      }
+
+      #todayBirth {
+        background: linear-gradient(120deg, #ff7aa7, #ff5f88);
+        color: white;
+        padding: 12px 16px;
+        border-radius: 12px;
+        transition: all 0.25s ease;
+        cursor: pointer;
+        box-shadow: 0 6px 20px rgba(255, 0, 90, 0.2);
+        text-align: center;
+      }
+
+      #upcomingBirth {
+        background: linear-gradient(120deg, #5aa8ff, #007bff);
+        color: white;
+        padding: 12px 16px;
+        border-radius: 12px;
+        transition: all 0.25s ease;
+        cursor: pointer;
+        box-shadow: 0 6px 20px rgba(0, 100, 255, 0.2);
+        text-align: center;
+      }
+
+      #todayBirth:hover,
+      #upcomingBirth:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
       }
 
       .footer {
-        margin-top: 16px;
+        margin-top: 20px;
         text-align: center;
         color: var(--muted);
         font-size: 13px;
@@ -533,86 +525,307 @@
         text-align: center;
       }
 
-      /* Accessibility & responsive tweaks ------------------------------------- */
-      @media (min-width: 1000px) {
+      /* Dynamic animation helpers */
+      .dynamic-sparkle {
+        position: fixed;
+        pointer-events: none;
+        z-index: 220;
+        mix-blend-mode: screen;
+        will-change: transform, opacity;
+        transition: opacity 300ms linear;
+      }
+
+      .dynamic-sparkle .spark {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        opacity: 0;
+        transform: translate3d(0, 0, 0) scale(0.6);
+        animation: sparkleFly 1000ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      @keyframes sparkleFly {
+        0% {
+          opacity: 1;
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+        60% {
+          opacity: 1;
+          transform: translate3d(var(--dx), var(--dy), 0) scale(0.9);
+        }
+        100% {
+          opacity: 0;
+          transform: translate3d(calc(var(--dx) * 1.2), calc(var(--dy) * 1.2), 0) scale(0.2);
+        }
+      }
+
+      .dynamic-ribbon {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 10vh;
+        height: 12vh;
+        pointer-events: none;
+        z-index: 215;
+        overflow: visible;
+      }
+
+      .dynamic-ribbon .ribbon-strip {
+        position: absolute;
+        height: 18px;
+        left: -30%;
+        width: 160%;
+        background: linear-gradient(90deg, rgba(255, 107, 107, 0.95), rgba(169, 107, 255, 0.95));
+        transform: skewX(-18deg) translateX(-100%);
+        animation: ribbonSweep 1200ms ease-out forwards;
+        opacity: 0.98;
+        filter: blur(0.6px);
+      }
+
+      @keyframes ribbonSweep {
+        to {
+          transform: skewX(-18deg) translateX(20%);
+        }
+      }
+
+      .dynamic-flash {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 209;
+        background: radial-gradient(circle at 50% 20%, rgba(255, 240, 200, 0.12), rgba(0, 0, 0, 0));
+        opacity: 0;
+        transition: opacity 160ms ease;
+      }
+
+      .dynamic-flash.on {
+        opacity: 1;
+        transition: opacity 160ms ease;
+      }
+
+      /* Premium Effects */
+      .dynamic-balloon {
+        position: fixed;
+        pointer-events: none;
+        z-index: 230;
+        will-change: transform, opacity;
+        transform-origin: center;
+        transition: transform 600ms ease, opacity 600ms ease;
+      }
+
+      .dynamic-balloon .balloon-shape {
+        width: 48px;
+        height: 62px;
+        border-radius: 42% 42% 50% 50%;
+        display: block;
+        transform-origin: center;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+      }
+
+      .dynamic-balloon .string {
+        position: absolute;
+        left: 50%;
+        bottom: -14px;
+        width: 2px;
+        height: 34px;
+        margin-left: -1px;
+        background: rgba(0, 0, 0, 0.12);
+        border-radius: 2px;
+        transform-origin: top center;
+      }
+
+      @keyframes balloonFloat {
+        0% {
+          transform: translate3d(0, 0, 0) rotate(-6deg) scale(0.95);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        60% {
+          transform: translate3d(0, -46vh, 0) rotate(6deg) scale(1.03);
+        }
+        100% {
+          transform: translate3d(-6vw, -110vh, 0) rotate(12deg) scale(0.96);
+          opacity: 0;
+        }
+      }
+
+      .avatar-wrapper {
+        position: relative;
+        display: inline-block;
+      }
+
+      .neon-ring {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: calc(100% + 18px);
+        height: calc(100% + 18px);
+        border-radius: 16px;
+        pointer-events: none;
+        z-index: 5;
+        filter: blur(6px);
+        opacity: 0;
+        transition: opacity 240ms ease, transform 240ms ease;
+      }
+
+      .neon-ring::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: linear-gradient(90deg, rgba(255, 182, 68, 0.95), rgba(169, 107, 255, 0.9));
+        mix-blend-mode: screen;
+        opacity: 0.95;
+        transform: scale(0.98);
+      }
+
+      .neon-ring.show {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.06);
+        animation: neonPulse 1400ms ease-in-out 1;
+      }
+
+      @keyframes neonPulse {
+        0% {
+          transform: translate(-50%, -50%) scale(1);
+          filter: blur(6px);
+        }
+        40% {
+          transform: translate(-50%, -50%) scale(1.08);
+          filter: blur(8px);
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(1.02);
+          filter: blur(6px);
+        }
+      }
+
+      .sparkle-trail {
+        position: fixed;
+        pointer-events: none;
+        z-index: 240;
+        left: 0;
+        top: 0;
+      }
+
+      .sparkle {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        opacity: 0;
+        transform: translate3d(0, 0, 0) scale(0.6);
+        will-change: transform, opacity;
+        animation: sparklePop 900ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      }
+
+      @keyframes sparklePop {
+        0% {
+          opacity: 1;
+          transform: translate3d(0, 0, 0) scale(1);
+          filter: blur(0);
+        }
+        60% {
+          opacity: 1;
+          transform: translate3d(var(--dx), var(--dy), 0) scale(0.9);
+        }
+        100% {
+          opacity: 0;
+          transform: translate3d(calc(var(--dx) * 1.2), calc(var(--dy) * 1.2), 0) scale(0.2);
+        }
+      }
+
+      /* Responsive improvements */
+      @media (max-width: 768px) {
+        body {
+          padding: 15px;
+        }
+        
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+        
+        .controls {
+          justify-content: flex-start;
+        }
+        
+        .months {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+        
+        .month-card {
+          padding: 15px;
+        }
+        
+        .birth {
+          padding: 10px;
+          min-height: 65px;
+        }
+        
         .avatar {
-          width: 52px;
-          height: 52px;
-          flex: 0 0 52px;
+          width: 45px;
+          height: 45px;
         }
-        .month-title {
-          font-size: 18px;
+        
+        .info-bar {
+          margin-top: 15px;
         }
       }
-      .info-bar {
-        margin-top: 6px;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        font-size: 14px;
-        font-weight: 600;
+
+      @media (max-width: 480px) {
+        body {
+          padding: 12px;
+        }
+        
+        h1 {
+          font-size: 20px;
+        }
+        
+        input[type="number"] {
+          width: 100px;
+          padding: 10px 12px;
+        }
+        
+        .month-card {
+          padding: 12px;
+        }
+        
+        .birth {
+          gap: 10px;
+          padding: 8px;
+        }
+        
+        .avatar {
+          width: 40px;
+          height: 40px;
+        }
+        
+        .bname {
+          font-size: 14px;
+        }
+        
+        .bdate {
+          font-size: 12px;
+        }
       }
 
-      #todayBirth,
-      #upcomingBirth {
-        background: rgba(255, 255, 255, 0.8);
-        padding: 6px 10px;
-        border-radius: 8px;
-        border: 1px solid rgba(0, 0, 0, 0.06);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        cursor: default;
+      @media (min-width: 1200px) {
+        .months {
+          grid-template-columns: repeat(3, 1fr);
+        }
       }
 
-      /* Hover effect */
-      #todayBirth:hover,
-      #upcomingBirth:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-      }
-      .info-bar {
-        margin-top: 6px;
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        font-size: 14px;
-        font-weight: 600;
-      }
-
-      /* Today Birthday */
-      #todayBirth {
-        background: linear-gradient(120deg, #ff7aa7, #ff5f88);
-        color: white;
-        padding: 8px 12px;
-        border-radius: 10px;
-        transition: transform 0.22s ease, box-shadow 0.22s ease;
-        cursor: pointer;
-        box-shadow: 0 3px 10px rgba(255, 0, 90, 0.25);
-      }
-
-      /* Upcoming Birthday */
-      #upcomingBirth {
-        background: linear-gradient(120deg, #5aa8ff, #007bff);
-        color: white;
-        padding: 8px 12px;
-        border-radius: 10px;
-        transition: transform 0.22s ease, box-shadow 0.22s ease;
-        cursor: pointer;
-        box-shadow: 0 3px 10px rgba(0, 100, 255, 0.25);
-      }
-
-      /* Hover effect */
-      #todayBirth:hover,
-      #upcomingBirth:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
-      }
-      .birth {
-        border: 2px solid transparent;
-      }
-
-      .birth.hover-border {
-        border-color: var(--accent);
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      @media (min-width: 1400px) {
+        .months {
+          grid-template-columns: repeat(4, 1fr);
+        }
       }
     </style>
   </head>
@@ -692,7 +905,6 @@
 
     <!-- confetti canvas -->
     <canvas id="confetti"></canvas>
-
     <script>
       /* ---------------------------
         Birthday config (edit photos in /images folder)
@@ -768,14 +980,14 @@
           photo: "images/muthu.jpg",
           notes: "friend",
         },
-         {
+        {
           name: "Suriya",
           month: 9,
           day: 30,
           photo: "images/suriya.jpg",
           notes: "friend",
         },
-         {
+        {
           name: "Dinesh kumar",
           month: 9,
           day: 4,
@@ -805,11 +1017,12 @@
         },
         {
           name: "Mohan Raj",
-          month: 9,
-          day: 4,
+          month: 3,
+          day: 24,
           photo: "images/mohan.jpg",
           notes: "friend",
         },
+        // Removed duplicate: Mohan Raj (same date as Dinesh kumar)
       ];
 
       /* ---------------------------
@@ -892,8 +1105,6 @@
         if (todayEl) todayEl.innerText = todayMsg;
 
         // Upcoming (after today)
-        const todayNumber = tMonth * 100 + tDay;
-        // Calculate days left or days ago
         function dayDifference(b) {
           const today = new Date();
           const thisYear = today.getFullYear();
@@ -921,9 +1132,10 @@
           else if (next.diff === 1) text = "1 day left";
           else text = `${next.diff} days left`;
 
-          upcomingEl.innerText = `Upcoming: ${next.name} — ${text}`;
+          if (upcomingEl)
+            upcomingEl.innerText = `Upcoming: ${next.name} — ${text}`;
         } else {
-          upcomingEl.innerText = "No upcoming birthdays.";
+          if (upcomingEl) upcomingEl.innerText = "No upcoming birthdays.";
         }
       }
 
@@ -1220,6 +1432,327 @@
       /* ---------------------------
         Balloons: spawn burst and auto-remove
       ---------------------------- */
+      /* ---------------------------
+        Dynamic Animation Controller
+      ---------------------------- */
+      (function () {
+        const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+        const animations = [
+          "confettiBurst",
+          "confettiRain",
+          "balloons",
+          "sparkles",
+          "ribbons",
+          "pulse",
+        ];
+        let currentAnimationIndex = 0;
+
+        function getNextAnimation() {
+          const animation = animations[currentAnimationIndex];
+          currentAnimationIndex =
+            (currentAnimationIndex + 1) % animations.length;
+          return animation;
+        }
+
+        function shortDelay(ms) {
+          return new Promise((res) => setTimeout(res, ms));
+        }
+
+        /* --------- Animation Implementations ---------- */
+
+        function confettiBurst(opts = {}) {
+          const count = isMobile ? 30 : 80;
+          launchConfetti();
+          flashScreen();
+        }
+
+        async function confettiRain(opts = {}) {
+          const waves = isMobile ? 3 : 6;
+          for (let i = 0; i < waves; i++) {
+            launchConfetti();
+            await shortDelay(isMobile ? 180 : 120);
+          }
+          flashScreen();
+        }
+
+        function balloons(opts = {}) {
+          const count = isMobile ? 8 : 15;
+          spawnBalloonsBurst(count, 4000);
+          flashScreen(120);
+        }
+
+        function sparkles(opts = {}) {
+          const container = document.createElement("div");
+          container.className = "dynamic-sparkle";
+          document.body.appendChild(container);
+
+          const count = isMobile ? 12 : 24;
+          for (let i = 0; i < count; i++) {
+            const spark = document.createElement("div");
+            spark.className = "spark";
+            const color =
+              monthColors[Math.floor(Math.random() * monthColors.length)];
+            spark.style.background = color;
+
+            const dx = (Math.random() - 0.5) * 400;
+            const dy = -Math.abs(Math.random() * 300 + 100);
+            spark.style.setProperty("--dx", dx + "px");
+            spark.style.setProperty("--dy", dy + "px");
+
+            spark.style.left =
+              window.innerWidth / 2 + (Math.random() - 0.5) * 200 + "px";
+            spark.style.top = window.innerHeight * 0.3 + "px";
+            container.appendChild(spark);
+
+            setTimeout(() => spark.remove(), 1200 + Math.random() * 400);
+          }
+
+          setTimeout(() => container.remove(), 2000);
+          flashScreen(90);
+        }
+
+        function ribbons(opts = {}) {
+          const container = document.createElement("div");
+          container.className = "dynamic-ribbon";
+          const strip = document.createElement("div");
+          strip.className = "ribbon-strip";
+          strip.style.background = `linear-gradient(90deg, ${
+            monthColors[Math.floor(Math.random() * monthColors.length)]
+          }, ${monthColors[Math.floor(Math.random() * monthColors.length)]})`;
+          container.appendChild(strip);
+          document.body.appendChild(container);
+
+          setTimeout(() => container.remove(), 1400);
+          flashScreen(80);
+        }
+
+        function pulse(opts = {}) {
+          document.querySelectorAll(".birth").forEach((birth) => {
+            birth.classList.add("today");
+            setTimeout(() => birth.classList.remove("today"), 2000);
+          });
+          sparkles({ count: isMobile ? 8 : 16 });
+        }
+
+        function flashScreen(ms = 160) {
+          let flash = document.getElementById("dynamicFlashOverlay");
+          if (!flash) {
+            flash = document.createElement("div");
+            flash.id = "dynamicFlashOverlay";
+            flash.className = "dynamic-flash";
+            document.body.appendChild(flash);
+          }
+          flash.classList.add("on");
+          setTimeout(() => flash.classList.remove("on"), ms);
+        }
+
+        /* --------- Main Animation Runner ---------- */
+        function runDynamicAnimation(type, opts = {}) {
+          switch (type) {
+            case "confettiBurst":
+              confettiBurst(opts);
+              break;
+            case "confettiRain":
+              confettiRain(opts);
+              break;
+            case "balloons":
+              balloons(opts);
+              break;
+            case "sparkles":
+              sparkles(opts);
+              break;
+            case "ribbons":
+              ribbons(opts);
+              break;
+            case "pulse":
+              pulse(opts);
+              break;
+            default:
+              confettiBurst(opts);
+          }
+        }
+
+        /* --------- Hook into Wish Button ---------- */
+        if (wishBtn) {
+          const originalWishHandler = wishBtn.onclick;
+          wishBtn.onclick = async function (e) {
+            if (originalWishHandler) {
+              await originalWishHandler.call(this, e);
+            }
+
+            // Run dynamic animation
+            const nextAnimation = getNextAnimation();
+            runDynamicAnimation(nextAnimation);
+
+            // Update button text to show current animation
+            const prevText = wishBtn.textContent;
+            wishBtn.textContent = `Celebrating with ${nextAnimation}... 🎉`;
+            setTimeout(() => {
+              wishBtn.textContent = prevText;
+            }, 2000);
+          };
+        }
+
+        /* --------- Hook into Birthday Clicks ---------- */
+        document.addEventListener("click", function (e) {
+          if (e.target.closest(".birth")) {
+            const nextAnimation = getNextAnimation();
+            runDynamicAnimation(nextAnimation);
+          }
+        });
+
+        /* --------- Expose to Global Scope ---------- */
+        window.runDynamicAnimation = runDynamicAnimation;
+        window.getNextAnimation = getNextAnimation;
+      })();
+
+      /* ---------------------------
+        Premium Effects System
+      ---------------------------- */
+      (function () {
+        const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
+        function makeBalloon(color) {
+          const container = document.createElement("div");
+          container.className = "dynamic-balloon";
+          const shape = document.createElement("div");
+          shape.className = "balloon-shape";
+          shape.style.background = `radial-gradient(circle at 30% 25%, rgba(255,255,255,0.7), ${color})`;
+          shape.style.border = `2px solid rgba(255,255,255,0.12)`;
+          container.appendChild(shape);
+          const str = document.createElement("div");
+          str.className = "string";
+          container.appendChild(str);
+          return container;
+        }
+
+        function spawnBalloon(x, y, color, delay = 0, lifetime = 4200) {
+          const b = makeBalloon(color);
+          document.body.appendChild(b);
+          Object.assign(b.style, {
+            left: x - 24 + "px",
+            top: y - 32 + "px",
+            opacity: 0,
+            transform: "translate3d(0,0,0) scale(0.96)",
+          });
+
+          setTimeout(() => {
+            b.style.opacity = 1;
+            b.style.animation = `balloonFloat ${lifetime}ms linear forwards`;
+            setTimeout(() => b.remove(), lifetime + 300);
+          }, delay);
+        }
+
+        function spawnBalloonBurst(count = 8, origin = null) {
+          const baseX = origin ? origin.x : window.innerWidth * 0.55;
+          const baseY = origin ? origin.y : window.innerHeight * 0.85;
+          const colors = monthColors || [
+            "#ff6b6b",
+            "#ffd36b",
+            "#6be3ff",
+            "#a96bff",
+            "#8ee3a1",
+          ];
+
+          for (let i = 0; i < count; i++) {
+            const x = baseX + (Math.random() - 0.5) * 240;
+            const y = baseY + (Math.random() - 0.5) * 80;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            spawnBalloon(
+              x,
+              y,
+              color,
+              i * 120 + Math.random() * 120,
+              3800 + Math.random() * 1200
+            );
+          }
+        }
+
+        function attachNeonTo(element) {
+          if (!element) return null;
+          if (!element.classList.contains("avatar-wrapper")) {
+            const wrapper = document.createElement("span");
+            wrapper.className = "avatar-wrapper";
+            element.parentNode.insertBefore(wrapper, element);
+            wrapper.appendChild(element);
+            element = wrapper;
+          }
+
+          let ring = element.querySelector(".neon-ring");
+          if (!ring) {
+            ring = document.createElement("div");
+            ring.className = "neon-ring";
+            element.appendChild(ring);
+          }
+          return ring;
+        }
+
+        function flashNeonOn(element, duration = 1400) {
+          const ring = attachNeonTo(element);
+          if (!ring) return;
+          ring.classList.add("show");
+          setTimeout(() => ring.classList.remove("show"), duration);
+        }
+
+        function dropSparkles(x, y, count = 10) {
+          const container = document.createElement("div");
+          container.className = "sparkle-trail";
+          document.body.appendChild(container);
+
+          const colors = monthColors || [
+            "#ffd36b",
+            "#ff6b6b",
+            "#6be3ff",
+            "#a96bff",
+            "#8ee3a1",
+          ];
+
+          for (let i = 0; i < count; i++) {
+            const s = document.createElement("div");
+            s.className = "sparkle";
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            s.style.background = color;
+
+            const dx = (Math.random() - 0.5) * (isMobile ? 160 : 420);
+            const dy = -Math.abs(Math.random() * (isMobile ? 140 : 420) + 40);
+            s.style.left = x + (Math.random() - 0.5) * 20 + "px";
+            s.style.top = y + (Math.random() - 0.5) * 8 + "px";
+            s.style.setProperty("--dx", dx + "px");
+            s.style.setProperty("--dy", dy + "px");
+            container.appendChild(s);
+
+            setTimeout(() => s.remove(), 1200 + Math.random() * 300);
+          }
+
+          setTimeout(() => container.remove(), 1600);
+        }
+
+        /* --------- Integrate with Existing System ---------- */
+        document.addEventListener("click", function (e) {
+          const birth = e.target.closest(".birth");
+          if (birth) {
+            const rect = birth.getBoundingClientRect();
+            const ox = (rect.left + rect.right) / 2;
+            const oy = rect.top + 24;
+
+            dropSparkles(ox, oy, isMobile ? 8 : 14);
+
+            const img = birth.querySelector("img");
+            if (img) flashNeonOn(img.parentElement || img, 1200);
+
+            spawnBalloonBurst(isMobile ? 4 : 6, {
+              x: ox,
+              y: window.innerHeight * 0.82,
+            });
+          }
+        });
+
+        /* --------- Expose Premium Effects ---------- */
+        window._birthdayCalendar = window._birthdayCalendar || {};
+        window._birthdayCalendar.spawnBalloonBurst = spawnBalloonBurst;
+        window._birthdayCalendar.dropSparkles = dropSparkles;
+        window._birthdayCalendar.flashNeonOn = flashNeonOn;
+      })();
       function ensureBalloonContainer() {
         let c = document.getElementById("balloons");
         if (!c) {
@@ -1288,32 +1821,6 @@
       }
 
       /* ---------------------------
-        Utility helpers
-      ---------------------------- */
-      function hexToRgba(hex, alpha = 1) {
-        const h = hex.replace("#", "");
-        const r = parseInt(h.substring(0, 2), 16);
-        const g = parseInt(h.substring(2, 4), 16);
-        const b = parseInt(h.substring(4, 6), 16);
-        return `rgba(${r},${g},${b},${alpha})`;
-      }
-
-      function shadeColor(hex, percent) {
-        let R = parseInt(hex.substring(1, 3), 16);
-        let G = parseInt(hex.substring(3, 5), 16);
-        let B = parseInt(hex.substring(5, 7), 16);
-        R = parseInt((R * (100 + percent)) / 100);
-        G = parseInt((G * (100 + percent)) / 100);
-        B = parseInt((B * (100 + percent)) / 100);
-        R = R < 255 ? R : 255;
-        G = G < 255 ? G : 255;
-        B = B < 255 ? B : 255;
-        const toHex = (v) =>
-          v.toString(16).length === 1 ? "0" + v.toString(16) : v.toString(16);
-        return "#" + toHex(R) + toHex(G) + toHex(B);
-      }
-
-      /* ---------------------------
         Auto year-rollover watcher
       ---------------------------- */
       let lastSeenYear = new Date().getFullYear();
@@ -1360,6 +1867,175 @@
         openModal,
         closeModalHandler,
       };
+            /* ---------------------------
+        Mobile Enhancements
+      ---------------------------- */
+      (function() {
+        // Touch device detection
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
+        // Add swipe support for months navigation
+        let touchStartX = 0;
+        let touchStartY = 0;
+        
+        document.addEventListener('touchstart', (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+          touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+        
+        document.addEventListener('touchend', (e) => {
+          const touchEndX = e.changedTouches[0].screenX;
+          const touchEndY = e.changedTouches[0].screenY;
+          const diffX = touchStartX - touchEndX;
+          const diffY = touchStartY - touchEndY;
+          
+          // Only consider horizontal swipes with minimal vertical movement
+          if (Math.abs(diffX) > 50 && Math.abs(diffY) < 100) {
+            if (diffX > 0) {
+              // Swipe left - next year
+              if (yearInput) {
+                yearInput.value = parseInt(yearInput.value) + 1;
+                renderAll();
+                checkBirthdays();
+                showSwipeFeedback('➡️ Next Year');
+              }
+            } else {
+              // Swipe right - previous year
+              if (yearInput) {
+                yearInput.value = parseInt(yearInput.value) - 1;
+                renderAll();
+                checkBirthdays();
+                showSwipeFeedback('⬅️ Previous Year');
+              }
+            }
+          }
+        }, { passive: true });
+        
+        function showSwipeFeedback(message) {
+          const feedback = document.createElement('div');
+          feedback.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            z-index: 10000;
+            font-size: 16px;
+            backdrop-filter: blur(10px);
+          `;
+          feedback.textContent = message;
+          document.body.appendChild(feedback);
+          
+          setTimeout(() => {
+            feedback.style.opacity = '0';
+            feedback.style.transition = 'opacity 0.3s ease';
+            setTimeout(() => feedback.remove(), 300);
+          }, 1000);
+        }
+        
+        // Enhanced touch feedback for birth items
+        document.addEventListener('touchstart', (e) => {
+          const birth = e.target.closest('.birth');
+          if (birth) {
+            birth.classList.add('touch-active');
+          }
+        }, { passive: true });
+        
+        document.addEventListener('touchend', (e) => {
+          const birth = e.target.closest('.birth');
+          if (birth) {
+            birth.classList.remove('touch-active');
+          }
+        }, { passive: true });
+        
+        // Prevent zoom on double tap
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', (e) => {
+          const now = Date.now();
+          if (now - lastTouchEnd <= 300) {
+            e.preventDefault();
+          }
+          lastTouchEnd = now;
+        }, { passive: false });
+        
+        // Add haptic feedback if available
+        function hapticFeedback() {
+          if ('vibrate' in navigator) {
+            navigator.vibrate(50);
+          }
+        }
+        
+        // Enhanced modal close with swipe down
+        if (modal) {
+          let modalStartY = 0;
+          
+          modal.addEventListener('touchstart', (e) => {
+            modalStartY = e.touches[0].clientY;
+          }, { passive: true });
+          
+          modal.addEventListener('touchmove', (e) => {
+            const currentY = e.touches[0].clientY;
+            const diff = currentY - modalStartY;
+            
+            if (diff > 50) {
+              closeModalHandler();
+              hapticFeedback();
+            }
+          }, { passive: true });
+        }
+        
+        // Mobile-optimized animations
+        function mobileFriendlyConfetti() {
+          if (isTouchDevice) {
+            // Fewer particles on mobile for better performance
+            for (let i = 0; i < 40; i++) {
+              confettis.push(
+                new Confetto(
+                  Math.random() * window.innerWidth,
+                  -20,
+                  2 + Math.random() * 2,
+                  8 + Math.random() * 8,
+                  monthColors[Math.floor(Math.random() * monthColors.length)],
+                  Math.random() * 6,
+                  0.1 + Math.random() * 0.1,
+                  Math.random() * 6
+                )
+              );
+            }
+          } else {
+            launchConfetti();
+          }
+        }
+        
+        // Replace original confetti with mobile-friendly version
+        window._birthdayCalendar.launchConfetti = mobileFriendlyConfetti;
+        
+        // Add loading states for better UX
+        function showLoading() {
+          document.body.classList.add('loading');
+        }
+        
+        function hideLoading() {
+          document.body.classList.remove('loading');
+        }
+        
+        // Enhanced render with loading states
+        const originalRenderAll = renderAll;
+        renderAll = function() {
+          showLoading();
+          setTimeout(() => {
+            originalRenderAll();
+            hideLoading();
+          }, 100);
+        };
+        
+        console.log('📱 Mobile enhancements loaded - Touch:', isTouchDevice);
+        
+      })();
     </script>
 
     <div class="balloons-container" id="balloons"></div>
